@@ -1,0 +1,230 @@
+
+
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 185 100% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 270 80% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 185 100% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 45%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 6%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 185 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom cyberpunk colors */
+    --cyber-dark: 222 47% 4%;
+    --cyber-darker: 222 47% 2%;
+    --cyber-glow: 185 100% 50%;
+    --cyber-glow-secondary: 270 80% 60%;
+    --cyber-surface: 222 47% 10%;
+    --cyber-surface-hover: 222 47% 14%;
+
+    /* Gradient definitions */
+    --gradient-cyber: linear-gradient(135deg, hsl(185 100% 50% / 0.15), hsl(270 80% 60% / 0.15));
+    --gradient-glow: linear-gradient(135deg, hsl(185 100% 50%), hsl(200 100% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(270 80% 60%), hsl(300 80% 50%));
+
+    /* Shadows with glow */
+    --shadow-glow-sm: 0 0 10px hsl(185 100% 50% / 0.3);
+    --shadow-glow-md: 0 0 20px hsl(185 100% 50% / 0.4);
+    --shadow-glow-lg: 0 0 40px hsl(185 100% 50% / 0.5);
+    --shadow-glow-purple: 0 0 20px hsl(270 80% 60% / 0.4);
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 185 100% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 12%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 217 33% 15%;
+    --sidebar-ring: 185 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-lg;
+  }
+
+  .glass-panel-glow {
+    @apply glass-panel shadow-glow-sm;
+  }
+
+  .cyber-border {
+    @apply border border-primary/30 hover:border-primary/60 transition-colors;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 10px hsl(var(--secondary) / 0.5);
+  }
+
+  .neon-line {
+    @apply h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent;
+  }
+
+  .neon-line-vertical {
+    @apply w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent;
+  }
+
+  .status-indicator {
+    @apply relative;
+  }
+
+  .status-indicator::before {
+    content: '';
+    @apply absolute inset-0 rounded-full animate-ping opacity-75;
+  }
+
+  .mono-text {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .shadow-glow-sm {
+    box-shadow: var(--shadow-glow-sm);
+  }
+
+  .shadow-glow-md {
+    box-shadow: var(--shadow-glow-md);
+  }
+
+  .shadow-glow-lg {
+    box-shadow: var(--shadow-glow-lg);
+  }
+
+  .shadow-glow-purple {
+    box-shadow: var(--shadow-glow-purple);
+  }
+
+  .bg-cyber-dark {
+    background-color: hsl(var(--cyber-dark));
+  }
+
+  .bg-cyber-darker {
+    background-color: hsl(var(--cyber-darker));
+  }
+
+  .bg-cyber-surface {
+    background-color: hsl(var(--cyber-surface));
+  }
+
+  .bg-gradient-cyber {
+    background: var(--gradient-cyber);
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: var(--shadow-glow-sm);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: var(--shadow-glow-md);
+    }
+  }
+
+  .animate-data-flow {
+    animation: data-flow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes data-flow {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-scan-line {
+    animation: scan-line 3s linear infinite;
+  }
+
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+}

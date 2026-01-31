@@ -1,0 +1,10 @@
+{
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:8082 && electron dist-electron/main.cjs\""
+,
+    "build": "vite build",
+    "electron:build": "npm run build && electron-builder"
+  }
+}

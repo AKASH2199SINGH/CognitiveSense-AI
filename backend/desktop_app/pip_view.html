@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CognitiveSense PiP</title>
+<style>
+body {
+    margin: 0;
+    background: rgba(20,20,20,0.9);
+    color: white;
+    font-family: Arial;
+}
+.box {
+    padding: 14px;
+}
+.state {
+    font-size: 22px;
+    font-weight: bold;
+}
+.normal { color: #00e676; }
+.stress { color: #ff9100; }
+.fatigue { color: #ff5252; }
+.small {
+    font-size: 13px;
+    opacity: 0.8;
+}
+</style>
+</head>
+<body>
+<div class="box">
+    <div id="state" class="state">Loading...</div>
+    <div id="conf" class="small"></div>
+    <div id="fatigue" class="small"></div>
+</div>
+
+<script>
+const ws = new WebSocket("ws://127.0.0.1:8000/ws/live");
+
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    const label = data.label_name || "Unknown";
+
+    const stateEl = document.getElementById("state");
+    stateEl.innerText = label;
+    stateEl.className = "state " + label.toLowerCase();
+
+    document.getElementById("conf").innerText =
+        "Confidence: " + (data.confidence * 100).toFixed(1) + "%";
+
+    document.getElementById("fatigue").innerText =
+        "Fatigue: " + (data.features?.fatigue_score ?? 0) + "/100";
+};
+</script>
+</body>
+</html>

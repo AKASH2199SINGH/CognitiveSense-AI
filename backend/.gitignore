@@ -1,0 +1,43 @@
+# =====================
+# Python virtual environments
+# =====================
+venv/
+.venv/
+env/
+
+# =====================
+# Environment files
+# =====================
+.env
+.env.*
+!.env.example
+
+# =====================
+# Python cache / bytecode
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+
+# =====================
+# Jupyter / Notebooks
+# =====================
+.ipynb_checkpoints/
+
+# =====================
+# Build / Distribution
+# =====================
+build/
+dist/
+
+# =====================
+# Logs
+# =====================
+*.log
+
+# =====================
+# OS / Editor
+# =====================
+.DS_Store
+.vscode/
+.idea/
