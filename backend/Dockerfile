@@ -5,16 +5,14 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# IMPORTANT: backend ke andar kaam karo
-WORKDIR /app/backend
+# 🔥 IMPORTANT: src ko WORKDIR banao
+WORKDIR /app/backend/src
 
-# Python ko bata do yahin se imports resolve karne hain
-ENV PYTHONPATH=/app/backend
+COPY backend/requirements.txt /app/backend/
+RUN pip install --upgrade pip && pip install --no-cache-dir -r /app/backend/requirements.txt
 
-COPY backend/requirements.txt .
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+# Copy full backend
+COPY backend /app/backend
 
-COPY backend .
-
-# EXACT same as your local command (Render-safe)
-CMD ["sh", "-c", "python -m uvicorn src.realtime.realtime_server:app --host 0.0.0.0 --port $PORT"]
+# 🔥 src ke andar se run karo
+CMD ["sh", "-c", "python -m uvicorn realtime.realtime_server:app --host 0.0.0.0 --port $PORT"]
