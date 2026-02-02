@@ -5,14 +5,11 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# 🔥 IMPORTANT: src ko WORKDIR banao
-WORKDIR /app/backend/src
+WORKDIR /app
 
-COPY backend/requirements.txt /app/backend/
-RUN pip install --upgrade pip && pip install --no-cache-dir -r /app/backend/requirements.txt
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Copy full backend
-COPY backend /app/backend
+COPY . .
 
-# 🔥 src ke andar se run karo
-CMD ["sh", "-c", "python -m uvicorn realtime.realtime_server:app --host 0.0.0.0 --port $PORT"]
+CMD ["sh", "-c", "python -m uvicorn src.realtime.realtime_server:app --host 0.0.0.0 --port $PORT"]
